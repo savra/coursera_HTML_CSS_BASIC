@@ -1,0 +1,7 @@
+p {
+    color: green;
+}
+
+ul li:nth-child(2n) {
+    color: red;
+}
