@@ -12,7 +12,24 @@
 
         <main class="global-results">
             <style>
-                /* ваш код здесь... */
+                .link:not([href]):hover
+                {
+                    opacity: .5;
+                }
+                .link[href]:hover
+                {
+                    color: #ff6698;
+                }
+                .link[href]
+                {
+                    color: #6698ff;
+                }
+                article a:first-child:active {
+                    color: #98ff66;
+                }
+                article a:first-child:visited {
+                    color: #ffb366;
+                }
             </style>
 
             <section class="global-result">
