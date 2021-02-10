@@ -12,7 +12,29 @@
 
         <main class="global-results">
             <style>
-                /* ваш код здесь... */
+                article > div {
+                    background: #ffb366;
+                }
+
+                article > div > div {
+                    background: #ffffff;
+                }
+
+                article div:first-child div:last-child {
+                    background: #98ff66;
+                }
+
+                article > div:nth-child(1) + div > div:nth-child(2n) {
+                    background: #ff6698;
+                }
+
+                article > div:nth-child(2) + div > div:nth-child(2n - 1) {
+                    background: #6698ff;
+                }
+
+                article div:last-child div:first-child {
+                    background: #ffff66;
+                }
             </style>
 
             <section class="global-result">
