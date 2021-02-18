@@ -1,8 +1,9 @@
 /*Ссылка на шрифты кроме основного 'https://fonts.googleapis.com/css?family=Farsan|Hind+Siliguri|Racing+Sans+One|Six+Caps|Space+Mono:700'*/
 @font-face {
     font-family: 'Rye', cursive;
-    src: local('Rye'),
+    src: local('fourthWeek/font/Rye-Regular.ttf'),
          url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Rye&display=swap");
+    font-style: normal;
 }
 
 body
@@ -56,7 +57,7 @@ body
 .header__title
 {
     overflow: visible;
-
+    font-family: 'Rye', cursive;
 
     margin: 0;
 }
