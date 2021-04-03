@@ -6,6 +6,42 @@
     font-style: normal;
 }
 
+/* latin */
+@font-face {
+    font-family: 'Space Mono';
+    font-style: normal;
+    font-weight: 700;
+    src: url(https://fonts.gstatic.com/s/spacemono/v6/i7dMIFZifjKcF5UAWdDRaPpZUFWaHg.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Six Caps';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sixcaps/v11/6ae_4KGrU7VR7bNmaYcV_3Q.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Racing Sans One';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/racingsansone/v8/sykr-yRtm7EvTrXNxkv5jfKKyDCAKHDn.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Farsan';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/farsan/v8/VEMwRoJ0vY_zsyzK3aWo.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 body
 {
     width: 1200px;
@@ -33,6 +69,7 @@ body
     box-sizing: border-box;
     width: 200px;
     padding: 25px 10px;
+    text-align: center;
 
     border: 1px solid;
 }
@@ -46,18 +83,26 @@ body
 
 .header__weather-title
 {
+    font-family: "Space Mono", monospace;
+    font-size: 1.17em;
+    text-align: center;
     margin: 0;
 }
 
 .header__weather-text
 {
     margin: 0;
+    text-align: justify;
+    font-size: 0.8em;
+    line-height: 110%;
 }
 
 .header__title
 {
     overflow: visible;
     font-family: 'Rye', cursive;
+    text-align: center;
+    font-size: 70px;
 
     margin: 0;
 }
@@ -75,7 +120,7 @@ body
 .sub-header__copyright
 {
     display: inline-block;
-
+    font-size: 0.6em;
     margin: 0 30px;
 }
 
@@ -98,6 +143,12 @@ body
     margin-bottom: 10px;
 }
 
+.left-column .article .article__title {
+    font-family: "Six Caps", sans-serif;
+    font-size: 3.2em;
+    font-weight: bold;
+}
+
 .article__help
 {
     margin-top: 10px !important;
@@ -109,18 +160,41 @@ body
 {
     margin-top: 10px;
     margin-bottom: 4px;
+    text-align: justify;
+    text-indent: 2em;
+    font-size: 0.8em;
+    font-style: oblique;
 }
 
 .article__author
 {
     display: block;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-align: center;
+    column-span: all;
 
     margin-top: 10px;
+}
+
+.article__content p {
+    text-indent: 2em;
+    text-align: justify;
+    font-size: 0.8em;
+}
+
+.article_columns_two {
+    column-count: 2;
+    column-gap: 15px;
 }
 
 .article__continue
 {
     display: block;
+    font-size: 0.8em;
+    font-style: oblique;
+    text-align: center;
+    column-span: all;
 }
 
 .article__image
@@ -139,12 +213,21 @@ body
 .article__subtitle
 {
     margin: 10px 0;
+    font-family: "Times New Roman", serif;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.17em;
 }
 
 /*––––––––––––––––––Блок главной фотографии–––––––––*/
 .main-photo__wrapper
 {
     margin: 0;
+}
+.main-photo__caption {
+    font-size: 0.7em;
+    font-variant: small-caps;
+    text-align: right;
 }
 
 .main-photo__img
@@ -160,6 +243,21 @@ body
 .main-photo__desc
 {
     margin-bottom: 20px;
+    font-size: 0.8em;
+}
+
+.article__title_font_racing {
+    font-family: "Racing Sans One", cursive;
+    font-size: 2em;
+    font-weight: bold;
+    column-span: all;
+}
+
+.article__title_font_farsan {
+    font-family: Farsan, cursive;
+    font-size: 2.3em;
+    font-weight: bold;
+    column-span: all;
 }
 
 /*––––––––––––––––––Линия разделения––––––––––––––––*/
@@ -179,6 +277,7 @@ body
 {
     width: 70px;
     margin: 0 auto;
+    column-span: all;
 }
 
 /*––––––––––––––––––Центральные колонки газеты––––––––––––––––––*/
@@ -252,4 +351,8 @@ body
     flex-shrink: 0;
 }
 
+.article__image-caption {
+    font-size: 0.8em;
+    text-decoration: underline;
+}
 /*––––––––––––––––––––––––––––––––––––––––––––––––––*/
