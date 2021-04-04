@@ -149,6 +149,12 @@ body
     font-weight: bold;
 }
 
+.right-column .article .article__title {
+    font-family: "Six Caps", sans-serif;
+    font-size: 3.2em;
+    font-weight: bold;
+}
+
 .article__help
 {
     margin-top: 10px !important;
@@ -161,7 +167,7 @@ body
     margin-top: 10px;
     margin-bottom: 4px;
     text-align: justify;
-    text-indent: 2em;
+    text-indent: 2ch;
     font-size: 0.8em;
     font-style: oblique;
 }
@@ -178,7 +184,7 @@ body
 }
 
 .article__content p {
-    text-indent: 2em;
+    text-indent: 2ch;
     text-align: justify;
     font-size: 0.8em;
 }
