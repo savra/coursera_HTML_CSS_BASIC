@@ -1,0 +1,22 @@
+.animation {
+    background-color: #f00;
+    width: 150px;
+    height: 150px;
+
+    transition-property: background-color;
+    transition-duration: .5s;
+    transition-timing-function: linear;
+    animation-name: move-box;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+
+.animation:hover {
+    background-color: #ff0;
+}
+
+@keyframes move-box {
+    to {
+        transform: translate(200px, 100%) scale(2) rotate(145deg);
+    }
+}
