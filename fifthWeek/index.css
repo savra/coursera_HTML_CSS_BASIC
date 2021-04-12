@@ -4,11 +4,11 @@
     height: 150px;
 
     transition-property: background-color;
-    transition-duration: .5s;
     transition-timing-function: linear;
     animation-name: move-box;
     animation-duration: 3s;
-    animation-fill-mode: forwards;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
 }
 
 .animation:hover {
@@ -16,7 +16,16 @@
 }
 
 @keyframes move-box {
-    to {
-        transform: translate(200px, 100%) scale(2) rotate(145deg);
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(300px);
+    }
+    50% {
+        transform: translateX(300px) translateY(100%);
+    }
+    75%, 100% {
+        transform: translateX(300px) translateY(100%) scale(2) rotate(145deg);
     }
 }
