@@ -1,4 +1,6 @@
-let sourceArray = ['1', '2', '3', '2', '1', '1', '2', "3", "3"];
+let sourceArray = ['a', 'B', 'b', 'b', 'B', 'B', 'B', "B", "B", "B", "B"];
+let sourceArray3 = ["kkk", "kKk"];
+let sourceArray4 = [];
 
 if (sourceArray.length === 0) {
     console.log("");
@@ -6,6 +8,8 @@ if (sourceArray.length === 0) {
     for (let i = 0; i < sourceArray.length - 1; i++) {
         sourceArray[i] = sourceArray[i].toLowerCase();
         for (let j = i + 1; j < sourceArray.length; j++) {
+            console.log("i = " + i);
+            console.log("j = " + j);
             if (sourceArray[i].toLowerCase() === sourceArray[j].toLowerCase()) {
                 console.log("before delete" + " " +  sourceArray);
                 sourceArray.splice(j, 1);
