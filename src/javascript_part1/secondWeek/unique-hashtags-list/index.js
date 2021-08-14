@@ -11,6 +11,7 @@ module.exports = function (hashtags) {
             for (let j = i + 1; j < hashtags.length; j++) {
                 if (hashtags[i].toLowerCase() === hashtags[j].toLowerCase()) {
                     hashtags.splice(j, 1);
+                    j--;
                 }
             }
         }
