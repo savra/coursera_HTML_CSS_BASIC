@@ -11,4 +11,4 @@ let time = date(sourceDate)
     .add(3, "days")
     .add(15, "minutes");
 
-console.log(time.date);
+console.log(time.value);

@@ -4,14 +4,15 @@ var assert = require('assert');
 // Подключаем свою функцию
 var date = require('./index.js');
 
-var time = date('2017-05-16 13:45')
-    .add(24, 'hours')
-    .subtract(1, 'months')
-    .add(3, 'days')
-    .add(15, 'minutes');
+var time = date('2015-01-01 00:00')
+    .add(5, 'minutes')
+    .add(1, "hours")
+    .add(2, "days")
+    .add(3, "months")
+    .add(1, "years")
 assert.deepEqual(
     time.value,
-    '2017-04-20 14:00',
+    '2016-04-03 01:05',
 
     'Если к дате "2017-05-16 13:45" ' +
     'прибавить 24 часа, 3 дня и 15 минут, вычесть 1 месяц, ' +
