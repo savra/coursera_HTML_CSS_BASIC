@@ -4,27 +4,34 @@ let sourceArr = [
     ["select", "plus", "email", "name"],
     ["select", "gender", "table", "name"],
     ["query", "favoriteFruit", ['Яблоко', 'Картофель']],
-    ["query", "gender", ],
-    ["query", "favoriteFruit", table, name]
+    ["query", "gender", ['Женский', 'Мужской']],
+    ["query", "favoriteFruit", ['Яблоко', 'Сало']]
 ];
 
 let resultObj = [];
 
-let attr = {
-    name: "",
-    counter: 0
+let selectParams = {
+    fields: [],
+    selectCount: 0
 }
 
+let queryParams = {
+    fields: [],
+    queryCount : 0
+}
 
 for (let i = 0; i < sourceArr.length; i++) {
     if (sourceArr[i][0] === "select") {
-        for (let j = 1; j < sourceArr[i].length; j++) {
-            resultObj[0] = attr {}
-        }
+        selectParams.selectCount++;
+        selectParams.fields.push(sourceArr[i].slice(1));
     } else if (sourceArr[i][0] === "query") {
-
+        queryParams.queryCount++;
+        queryParams.fields.push(sourceArr[i].slice(1));
     }
 }
+
+selectParams.fields = selectParams.fields.substring(0, selectParams.fields.length - 1);
+queryParams.fields = queryParams.fields.substring(0, queryParams.fields.length - 1);
 
 let test = {
     gg: true,

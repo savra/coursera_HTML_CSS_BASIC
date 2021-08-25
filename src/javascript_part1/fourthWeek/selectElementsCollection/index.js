@@ -11,12 +11,9 @@ function query(collection) {
         return resultCollection;
     }
 
-    let selectParams = [];
+
 
     for (let i = 1; i < arguments.length; i++) {
-        if (arguments[i][0] === "select") {
-            selectParams
-        }
     }
 }
 
