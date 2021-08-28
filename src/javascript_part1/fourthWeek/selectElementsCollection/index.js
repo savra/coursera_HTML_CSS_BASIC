@@ -5,16 +5,74 @@
  */
 function query(collection) {
     let resultCollection = collection.slice();
-    let args = [].slice.call(collection);
+    let args = [].slice.call(arguments);
 
-    if(arguments.length === 1) {
+    if (args.length === 1) {
         return resultCollection;
     }
 
+    let keys = Object.keys(args[0][0]);
 
-
-    for (let i = 1; i < arguments.length; i++) {
+    for (let i = 1; i < args.length; i++) {
+        for (let j = 1; j < args[i].length; j++) {
+            if (args[i][0] === "select" && !keys.includes(args[i][j])) {
+                args[i].splice(j, 1);
+                i--;
+            }
+        }
     }
+
+    let resultSelectParams = [];
+    let resultQueryParams = [];
+
+    for (let i = 1; i < args.length; i++) {
+        if (args[i][0] === "select") {
+            if (resultSelectParams.length > 0) {
+                resultSelectParams = resultSelectParams.filter(value => args[i].includes(value));
+            } else {
+                resultSelectParams = args[i].slice(1);
+            }
+        } else if (args[i][0] === "query") {
+            if (resultQueryParams.map((e) => e.paramName).includes(args[i][1])) {
+                for (let j = 0; j < resultQueryParams.length; j++) {
+                    if (resultQueryParams[j].paramName === args[i][1]) {
+                        resultQueryParams[j].paramValues = resultQueryParams[j].paramValues.filter(value => args[i][2].includes(value));
+                    }
+                }
+            } else {
+                let paramObj = {
+                    paramName: "",
+                    paramValues: []
+                };
+
+                paramObj.paramName = args[i][1];
+                paramObj.paramValues = args[i][2].slice(0);
+                resultQueryParams.push(paramObj);
+            }
+        }
+    }
+
+    //Filtering
+    for(let i = 0; i < resultCollection.length; i++) {
+        for(let j = 0; j < resultQueryParams.length; j++) {
+            if (!resultQueryParams[j].paramValues.includes(resultCollection[i][resultQueryParams[j].paramName])) {
+                resultCollection.splice(i, 1);
+                i--;
+                break;
+            }
+        }
+    }
+
+
+    for (let i = 0; i < resultCollection.length; i++) {
+        for (let key in resultCollection[i]) {
+            if (!resultSelectParams.includes(key)) {
+                delete resultCollection[i][key];
+            }
+        }
+    }
+
+    return resultCollection;
 }
 
 /**

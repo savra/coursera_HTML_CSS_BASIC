@@ -8,6 +8,15 @@ let sourceArr = [
     ["query", "favoriteFruit", ['Яблоко', 'Сало']]
 ];
 
+
+let arr1 = ["name", "gender", "email"], arr2 = ["plus", "email", "name"], arr3 = [];
+
+arr3 = arr1.filter(value => {
+        return arr2.includes(value);
+    }
+);
+
+
 let resultObj = [];
 
 let selectParams = {
@@ -30,8 +39,7 @@ for (let i = 0; i < sourceArr.length; i++) {
     }
 }
 
-selectParams.fields = selectParams.fields.substring(0, selectParams.fields.length - 1);
-queryParams.fields = queryParams.fields.substring(0, queryParams.fields.length - 1);
+let resultSelectParams = selectParams
 
 let test = {
     gg: true,
