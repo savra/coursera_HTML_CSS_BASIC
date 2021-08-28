@@ -23,10 +23,12 @@ function query(collection) {
     }
 
     let resultSelectParams = [];
+    let selectCount = 0;
     let resultQueryParams = [];
 
     for (let i = 1; i < args.length; i++) {
         if (args[i][0] === "select") {
+            selectCount++;
             if (resultSelectParams.length > 0) {
                 resultSelectParams = resultSelectParams.filter(value => args[i].includes(value));
             } else {
@@ -53,8 +55,8 @@ function query(collection) {
     }
 
     //Filtering
-    for(let i = 0; i < resultCollection.length; i++) {
-        for(let j = 0; j < resultQueryParams.length; j++) {
+    for (let i = 0; i < resultCollection.length; i++) {
+        for (let j = 0; j < resultQueryParams.length; j++) {
             if (!resultQueryParams[j].paramValues.includes(resultCollection[i][resultQueryParams[j].paramName])) {
                 resultCollection.splice(i, 1);
                 i--;
@@ -63,16 +65,30 @@ function query(collection) {
         }
     }
 
+    let superResultCollection = [];
 
-    for (let i = 0; i < resultCollection.length; i++) {
-        for (let key in resultCollection[i]) {
-            if (!resultSelectParams.includes(key)) {
-                delete resultCollection[i][key];
+    if (resultSelectParams.length !== 0) {
+        for (let i = 0; i < resultCollection.length; i++) {
+            let tmpObject = {};
+            for (let key in resultCollection[i]) {
+                if (resultSelectParams.includes(key)) {
+                    Object.defineProperty(tmpObject, key, {
+                        value: resultCollection[i][key], writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
+
+                }
             }
+            superResultCollection.push(tmpObject);
         }
+    } else if (resultSelectParams.length === 0 && selectCount === 0) {
+        superResultCollection = resultCollection.slice();
+    } else {
+        superResultCollection = [];
     }
 
-    return resultCollection;
+    return superResultCollection;
 }
 
 /**
