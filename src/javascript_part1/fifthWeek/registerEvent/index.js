@@ -10,20 +10,11 @@ module.exports = {
         let existsEvent = false;
         for (let i = 0; i < this.events.length; i++) {
             if (this.events[i].eventName === event) {
-                let existSubscriber = false;
-                for(let j = 0; j < this.events[i].handlers.length; j++) {
-                    if (this.events[i].handlers[j].subscriber === subscriber) {
-
-                    }
-                }
-
-                if (this.events[i].handlers.includes(subscriber))
                 this.events[i].handlers.push({handler, subscriber});
                 existsEvent = true;
                 break;
             }
         }
-
         if (!existsEvent) {
             this.events.push({
                 eventName: event,
@@ -46,11 +37,12 @@ module.exports = {
                 for(let j = 0; j < this.events[i].handlers.length; j++) {
                     if (this.events[i].handlers[j].subscriber === subscriber) {
                         this.events[i].handlers.splice(j, 1);
-                        return this;
+                        j--;
                     }
                 }
             }
         }
+        return this;
     },
 
     /**
