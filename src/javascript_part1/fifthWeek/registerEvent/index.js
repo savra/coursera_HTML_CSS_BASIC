@@ -1,5 +1,5 @@
 module.exports = {
-    events: [],
+    subscriptions: {},
 
     /**
      * @param {String} event
@@ -7,22 +7,14 @@ module.exports = {
      * @param {Function} handler
      */
     on: function (event, subscriber, handler) {
-        let existsEvent = false;
-        for (let i = 0; i < this.events.length; i++) {
-            if (this.events[i].eventName === event) {
-                this.events[i].handlers.push({handler, subscriber});
-                existsEvent = true;
-                break;
-            }
-        }
-        if (!existsEvent) {
-            this.events.push({
-                eventName: event,
-                handlers: [{handler, subscriber}]
-            });
+        if (!this.subscriptions[event]) {
+            this.subscriptions[event] = [];
         }
 
-
+        this.subscriptions[event].push({
+            subscriber: subscriber,
+            handler: handler
+        });
 
         return this;
     },
@@ -32,14 +24,14 @@ module.exports = {
      * @param {Object} subscriber
      */
     off: function (event, subscriber) {
-        for(let i = 0; i < this.events.length; i++) {
-            if (this.events[i].eventName === event) {
-                for(let j = 0; j < this.events[i].handlers.length; j++) {
-                    if (this.events[i].handlers[j].subscriber === subscriber) {
-                        this.events[i].handlers.splice(j, 1);
-                        j--;
-                    }
-                }
+        if (!this.subscriptions[event]) {
+            return this;
+        }
+
+        for (let i = 0; i < this.subscriptions[event].length; i++) {
+            if (this.subscriptions[event][i].subscriber === subscriber) {
+                this.subscriptions[event].splice(i, 1);
+                i--;
             }
         }
         return this;
@@ -49,9 +41,13 @@ module.exports = {
      * @param {String} event
      */
     emit: function (event) {
-        this.events.filter((element) => element.eventName === event).flatMap((item) => item.handlers).forEach((handler) => {
-            handler.handler.call(handler.subscriber);
-        });
+        if (!this.subscriptions[event]) {
+            return this;
+        }
+
+        for(let i = 0; i < this.subscriptions[event].length; i++) {
+            this.subscriptions[event][i].handler.call(this.subscriptions[event][i].subscriber);
+        }
 
         return this;
     }

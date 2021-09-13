@@ -43,11 +43,13 @@ assert.deepEqual(logger.logs, [
 // На время отключаем логгирование, а затем снова включаем
 emitter
     .off('new_notification', logger)
+    .off('new_notification2', logger)
     .emit('new_notification')
     .on('new_notification', logger, function () {
         this.logs.push('Новое событие new_notification!');
     })
-    .emit('new_notification');
+    .emit('new_notification')
+    .emit('new_notification2');
 
 // Проверяем количество нотификаций
 assert.equal(notifications.counter, 3, 'Получено три нотификации');
