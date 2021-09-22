@@ -205,23 +205,20 @@
     box-shadow: 0 0 100px #ffdf05;
 
     animation-name: sun-move;
-    animation-duration: 3s;
-    animation-direction: alternate;
+    animation-duration: 30s;
     animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
 
 @keyframes sun-move {
     0% {
-        transform: translateX(0);
-    }
-    25% {
-        transform: translateX(300px);
+        transform: translate(-300px, 200px) rotate(-1turn);
     }
     50% {
-        transform: translateX(300px) translateY(100%);
+        transform: translate(0, 0) ;
     }
-    75%, 100% {
-        transform: translateX(300px) translateY(100%) scale(2) rotate(145deg);
+    100% {
+        transform: translate(400px, 300px) rotate(1turn);
     }
 }
 
@@ -321,16 +318,16 @@
 
 .cloud-1 {
     top: 10px;
-    transform: scale(0.2);
+    transform: scale(0.2) scaleX(-1);
 
     animation-name: cloud-1-move;
-    animation-duration: 15s;
+    animation-duration: 114s;
     animation-iteration-count: infinite;
 }
 
 @keyframes cloud-1-move {
     to {
-        transform: translateX(500px);
+        transform: translateX(800px) scale(0.2) scaleX(-1);
     }
 }
 
@@ -339,13 +336,13 @@
     transform: scale(0.5);
 
     animation-name: cloud-2-move;
-    animation-duration: 15s;
+    animation-duration: 73s;
     animation-iteration-count: infinite;
 }
 
 @keyframes cloud-2-move {
     to {
-        transform: translateX(500px);
+        transform: translateX(800px) scale(0.5);
     }
 }
 
@@ -354,27 +351,29 @@
     transform: scale(0.7);
 
     animation-name: cloud-3-move;
-    animation-duration: 15s;
+    animation-duration: 57s;
+    animation-delay: 12s;
     animation-iteration-count: infinite;
 }
 
 @keyframes cloud-3-move {
     to {
-        transform: translateX(500px);
+        transform: translateX(800px) scale(0.7);
     }
 }
 
 .cloud-4 {
     top: 170px;
+    transform: scaleX(-1);
 
     animation-name: cloud-4-move;
-    animation-duration: 15s;
+    animation-duration: 41s;
     animation-iteration-count: infinite;
 }
 
 @keyframes cloud-4-move {
     to {
-        transform: translateX(500px);
+        transform: translateX(800px) scaleX(-1);
     }
 }
 
