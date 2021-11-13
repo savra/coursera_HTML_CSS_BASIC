@@ -11,10 +11,7 @@
 }
 
 .box_front {
-    animation-name: sky_color;
-    animation-duration: 5s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    animation: sky_color 30s linear infinite forwards;
     position: relative;
 
     overflow: hidden;
@@ -27,11 +24,15 @@
 }
 
 @keyframes sky_color {
-    50% {
+    0% {
+        background: skyblue;
+        box-shadow: 0 -400px 300px -300px steelblue inset;
+    }
+    70% {
         background: darkslateblue;
         box-shadow: 0 -400px 300px -300px orangered inset;
     }
-    to {
+    100% {
         background: darkslateblue;
         box-shadow: 0 -400px 300px -300px transparent inset;
     }
@@ -87,6 +88,17 @@
 
     width: 100px;
     height: 36px;
+
+    animation: ship-move 50s linear infinite forwards;
+}
+
+@keyframes ship-move {
+    0% {
+        transform: translateX(120px);
+    }
+    100% {
+        transform: translateX(-520px);
+    }
 }
 
 .ship_smokestack {
@@ -127,75 +139,73 @@
     top: -25px;
     right: 44px;
 
-    animation-name: smoke-1-move;
-    animation-duration: 3s;
-    animation-direction: alternate;
-    animation-iteration-count: infinite;
-}
-
-@keyframes smoke-1-move {
-    0% {
-        transform: translateX(0);
-    }
-    25% {
-        transform: translateX(300px);
-    }
-    50% {
-        transform: translateX(300px) translateY(100%);
-    }
-    75%, 100% {
-        transform: translateX(300px) translateY(100%) scale(2) rotate(145deg);
-    }
+    animation: smoke-1-move 2s linear infinite forwards;
 }
 
 .smoke-2 {
     top: -25px;
     right: 42px;
 
-    animation-name: smoke-2-move;
-    animation-duration: 3s;
-    animation-direction: alternate;
-    animation-iteration-count: infinite;
-}
-
-@keyframes smoke-2-move {
-    0% {
-        transform: translateX(0);
-    }
-    25% {
-        transform: translateX(300px);
-    }
-    50% {
-        transform: translateX(300px) translateY(100%);
-    }
-    75%, 100% {
-        transform: translateX(300px) translateY(100%) scale(2) rotate(145deg);
-    }
+    animation: smoke-2-move 2s linear infinite forwards;
 }
 
 .smoke-3 {
     top: -25px;
     right: 49px;
 
-    animation-name: smoke-3-move;
-    animation-duration: 3s;
-    animation-direction: alternate;
-    animation-iteration-count: infinite;
+    animation: smoke-3-move 2s linear infinite forwards;
+}
+
+@keyframes smoke-1-move {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+    animation-delay: 1s;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10px) scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(2);
+  }
+}
+
+@keyframes smoke-2-move {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(2);
+  }
 }
 
 @keyframes smoke-3-move {
-    from {
-        transform: translateX();
-    }
-    to {
-
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-30px) scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) scale(2);
+  }
 }
 
 .sun {
     position: absolute;
-    top: 30px;
-    right: 50%;
+    bottom: 50px;
+    left: -100px;
 
     width: 80px;
     height: 80px;
@@ -204,23 +214,16 @@
     background: #ffcf11;
     box-shadow: 0 0 100px #ffdf05;
 
-    animation-name: sun-move;
-    animation-duration: 30s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+    animation: sun-move1 30s linear infinite;
+
 }
 
-@keyframes sun-move {
-    0% {
-        transform: translate(-300px, 200px) rotate(-1turn);
-    }
-    50% {
-        transform: translate(0, 0) ;
-    }
-    100% {
-        transform: translate(400px, 300px) rotate(1turn);
+@keyframes sun-move1 {
+    to {
+        transform: rotate(1turn);
     }
 }
+
 
 .sun-wrapper {
     position: absolute;
@@ -229,6 +232,13 @@
     height: 100%;
 
     transform-origin: bottom center;
+    animation: sun-move 40s linear infinite;
+}
+
+@keyframes sun-move {
+    to {
+        transform: rotate(1turn);
+    }
 }
 
 .sun div {
@@ -320,9 +330,7 @@
     top: 10px;
     transform: scale(0.2) scaleX(-1);
 
-    animation-name: cloud-1-move;
-    animation-duration: 114s;
-    animation-iteration-count: infinite;
+    animation: cloud-1-move 114s infinite;
 }
 
 @keyframes cloud-1-move {
@@ -335,9 +343,7 @@
     top: 50px;
     transform: scale(0.5);
 
-    animation-name: cloud-2-move;
-    animation-duration: 73s;
-    animation-iteration-count: infinite;
+    animation: cloud-2-move 73s infinite;
 }
 
 @keyframes cloud-2-move {
@@ -350,10 +356,7 @@
     top: 100px;
     transform: scale(0.7);
 
-    animation-name: cloud-3-move;
-    animation-duration: 57s;
-    animation-delay: 12s;
-    animation-iteration-count: infinite;
+    animation: cloud-3-move 57s 12s infinite;
 }
 
 @keyframes cloud-3-move {
@@ -366,9 +369,7 @@
     top: 170px;
     transform: scaleX(-1);
 
-    animation-name: cloud-4-move;
-    animation-duration: 41s;
-    animation-iteration-count: infinite;
+    animation: cloud-4-move 41s infinite;
 }
 
 @keyframes cloud-4-move {
