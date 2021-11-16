@@ -20,7 +20,3 @@ Collection.prototype.count = function () {};
  * Создание коллекции из массива значений
  */
 Collection.from = function () {};
-
-
-var collection = new Collection();
-collection.count(); // 0
