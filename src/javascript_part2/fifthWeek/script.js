@@ -1,92 +1,98 @@
 'use strict';
 
-function validateForm(data) {
-    let form = document.getElementById(data.formId);
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
+(function () {
+    function validateNumber(value, min, max) {
+        value = parseInt(value);
 
-        let inputs = Array.from(document.querySelectorAll("input"));
-        let formIsValid = [];
-
-        for (let input of inputs) {
-            formIsValid.push(validateInput(input, data.inputErrorClass));
+        if (isNaN(value)) {
+            return false;
         }
 
-        if (form.classList.contains(data.formValidClass)) {
-            form.classList.remove(data.formValidClass);
+        if (min && parseInt(min) > value) {
+            return false;
         }
 
-        if (form.classList.contains(data.formInvalidClass)) {
-            form.classList.remove(data.formInvalidClass);
+        if (max && parseInt(max) < value) {
+            return false;
         }
 
-        if (!formIsValid.includes(false)) {
-            form.classList.add(data.formValidClass);
-        } else {
-            form.classList.add(data.formInvalidClass);
-        }
-    });
+        return true;
+    }
 
-    form.addEventListener("blur", (event) => {
-        if (event.target.tagName === "INPUT") {
-            validateInput(event.target, data.inputErrorClass);
-        }
-    }, true);
+    function validateRegexp(value, pattern, flags) {
+        var re = new RegExp(pattern, flags);
 
-    form.addEventListener("focus", (event) => {
-        if (event.target.tagName === "INPUT") {
-            if (event.target.classList.contains("input_error")) {
-                event.target.classList.remove("input_error");
+        return re.test(value);
+    }
+
+    function validateValue(value, dataset) {
+        switch (dataset.validator) {
+            case 'number':
+                return validateNumber(value, dataset.validatorMin, dataset.validatorMax);
+            case 'letters':
+                return validateRegexp(value, '^[a-zа-яё]+$', 'i');
+            case 'regexp':
+                return validateRegexp(value, dataset.validatorPattern);
+            default:
+                return true;
+        }
+    }
+
+    function checkInput(input) {
+        var value = input.value;
+        if (input.dataset.hasOwnProperty('required') && !value) {
+            return false;
+        }
+
+        var validator = input.dataset.validator;
+
+        return (validator && value)
+            ? validateValue(value, input.dataset)
+            : true;
+    }
+
+    window.validateForm = function (options) {
+        var form = document.getElementById(options.formId);
+        var inputs = Array.from(
+            document.querySelectorAll('#' + options.formId + ' input')
+        );
+
+        form.addEventListener('focus', function (event) {
+            var target = event.target;
+            if (target.tagName === 'INPUT') {
+                target.classList.remove(options.inputErrorClass);
             }
-        }
-    }, true);
-}
+        }, true);
 
-function validateInput(input, inputErrorClass) {
-    let isValid = true;
-    if (input.value.length === 0) {
-        if (input.hasAttribute("data-required")) {
-            input.classList.add(inputErrorClass);
-            isValid = false;
-        } else {
-            return isValid;
-        }
-    }
-
-    if (input.dataset.hasOwnProperty("validator")) {
-        switch (input.dataset.validator) {
-            case "letters":
-                if (input.value.match("^(?:[a-z]|[A-Z]|[а-я]|[А-Я])+$") === null) {
-                    input.classList.add(inputErrorClass);
-                    isValid = false;
+        form.addEventListener('blur', function (event) {
+            var target = event.target;
+            if (target.tagName === 'INPUT') {
+                if (!checkInput(target)) {
+                    target.classList.add(options.inputErrorClass);
                 }
-                break;
-            case "number":
-                if (input.dataset.validatorMin && (!input.value.match("^[0-9]+$") || (Number(input.value) < Number(input.dataset.validatorMin)))) {
-                    input.classList.add(inputErrorClass);
-                    isValid = false;
-                } else {
-                    if (input.dataset.validatorMax && (!input.value.match("^[0-9]+$") || Number(input.value) > Number(input.dataset.validatorMax))) {
-                        input.classList.add(inputErrorClass);
-                        isValid = false;
-                    } else {
-                        if (input.value.match("^[-]?[0-9]+$") === null) {
-                            input.classList.add(inputErrorClass);
-                            isValid = false;
-                            break;
-                        }
-                    }
-                }
-                break;
-            case "regexp":
-                if (input.value.match(input.dataset.validatorPattern) === null) {
-                    input.classList.add(inputErrorClass);
-                    isValid = false;
-                }
+            }
+        }, true);
 
-                break;
-        }
-    }
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            form.classList.remove(options.formValidClass);
+            form.classList.remove(options.formInvalidClass);
 
-    return isValid;
-}
+            var hasError = false;
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+
+                if (!checkInput(input)) {
+                    input.classList.add(options.inputErrorClass);
+                    hasError = true;
+                }
+            }
+
+            if (hasError) {
+                form.classList.add(options.formInvalidClass);
+            } else {
+                form.classList.add(options.formValidClass);
+            }
+        });
+    };
+}());
