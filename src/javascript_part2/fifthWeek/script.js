@@ -8,9 +8,9 @@ function validateForm(data) {
         let inputs = Array.from(document.querySelectorAll("input"));
         let formIsValid = [];
 
-        inputs.forEach(input => {
+        for (let input of inputs) {
             formIsValid.push(validateInput(input, data.inputErrorClass));
-        });
+        }
 
         if (form.classList.contains(data.formValidClass)) {
             form.classList.remove(data.formValidClass);
@@ -44,9 +44,13 @@ function validateForm(data) {
 
 function validateInput(input, inputErrorClass) {
     let isValid = true;
-    if (input.hasAttribute("data-required") && input.value.length === 0) {
-        input.classList.add(inputErrorClass);
-        isValid = false;
+    if (input.value.length === 0) {
+        if (input.hasAttribute("data-required")) {
+            input.classList.add(inputErrorClass);
+            isValid = false;
+        } else {
+            return isValid;
+        }
     }
 
     if (input.dataset.hasOwnProperty("validator")) {
@@ -58,24 +62,21 @@ function validateInput(input, inputErrorClass) {
                 }
                 break;
             case "number":
-                if (input.value.match("^[0-9]+$") === null) {
+                if (input.dataset.validatorMin && (!input.value.match("^[0-9]+$") || (Number(input.value) < Number(input.dataset.validatorMin)))) {
                     input.classList.add(inputErrorClass);
                     isValid = false;
-                    break;
+                } else {
+                    if (input.dataset.validatorMax && (!input.value.match("^[0-9]+$") || Number(input.value) > Number(input.dataset.validatorMax))) {
+                        input.classList.add(inputErrorClass);
+                        isValid = false;
+                    } else {
+                        if (input.value.match("^[-]?[0-9]+$") === null) {
+                            input.classList.add(inputErrorClass);
+                            isValid = false;
+                            break;
+                        }
+                    }
                 }
-
-                if (input.dataset.validatorMin && (Number(input.value) < Number(input.dataset.validatorMin))) {
-                    input.classList.add(inputErrorClass);
-                    isValid = false;
-                    break;
-                }
-
-                if (input.dataset.validatorMax && Number(input.value) > Number(input.dataset.validatorMax)) {
-                    input.classList.add(inputErrorClass);
-                    isValid = false;
-                    break;
-                }
-
                 break;
             case "regexp":
                 if (input.value.match(input.dataset.validatorPattern) === null) {
